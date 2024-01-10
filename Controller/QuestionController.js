@@ -15,12 +15,12 @@ const postquestion = async (req, res) => {
 
     const userid = req.user.userid; 
 
-    try {
+    try { 
         await connection.query("INSERT INTO questions (title,  description, userid,questionid) VALUES (?, ?, ?, ?)", [title, description, userid,uniqueId]);
         return res.status(StatusCodes.CREATED).json({message: "question posted successfully"});
     } catch (error) {
-        // console.log(error.message);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({message:"something went wrong try again later"});
+        console.log(error.message);
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({message:"something went wrong try again later when you ask",error});
     }
 };
 const getquestions = async (req, res) => {
@@ -30,7 +30,7 @@ const getquestions = async (req, res) => {
         return res.status(StatusCodes.OK).json({ questions });
 
     } catch (error) {
-        // console.log(error.message);
+        console.log(error.message);
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({message:"something went wrong try again later"});
     }
 }
